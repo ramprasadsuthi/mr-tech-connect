@@ -10,54 +10,94 @@ import {
   Cpu,
   MonitorSmartphone,
   ArrowRight,
+  Briefcase,
+  Camera,
+  Laptop,
 } from "lucide-react";
 
 const courses = [
   {
     icon: Code2,
-    title: "Java Full Stack",
-    description:
-      "Master Java, Spring Boot, React, and build enterprise-grade applications.",
+    title: "Java Full Stack Development",
+    description: "Comprehensive Java front-end back-end & DB",
     duration: "4-6 months",
     color: "from-orange-500 to-red-500",
-  },
-  {
-    icon: Database,
-    title: "Python Full Stack",
-    description:
-      "Learn Python, Django/Flask, and modern frontend technologies for web development.",
-    duration: "4-6 months",
-    color: "from-blue-500 to-cyan-500",
-  },
-  {
-    icon: BarChart3,
-    title: "Data Analytics & Power BI",
-    description:
-      "Transform data into insights with Excel, SQL, Power BI, and visualization tools.",
-    duration: "3-4 months",
-    color: "from-yellow-500 to-orange-500",
+    link: "/javafullstack.html",
   },
   {
     icon: TestTube,
-    title: "Manual & Automation Testing",
-    description:
-      "Master software testing with Selenium, TestNG, and agile methodologies.",
+    title: "Software Development Engineer in Test (SDET)",
+    description: "Training in development + testing",
+    duration: "4-6 months",
+    color: "from-green-500 to-emerald-500",
+  },
+  {
+    icon: TestTube,
+    title: "Manual Testing",
+    description: "Manual testing fundamentals + tools",
     duration: "3-4 months",
     color: "from-green-500 to-emerald-500",
   },
   {
-    icon: Cpu,
-    title: "AI Tools & Productivity",
-    description:
-      "Leverage AI tools like ChatGPT, Copilot, and automation for enhanced productivity.",
+    icon: Code2,
+    title: "Core Java for Beginners",
+    description: "Java basics for beginners",
+    duration: "2-3 months",
+    color: "from-orange-500 to-red-500",
+  },
+  {
+    icon: TestTube,
+    title: "Automation Testing",
+    description: "Selenium & automation frameworks",
+    duration: "3-4 months",
+    color: "from-green-500 to-emerald-500",
+  },
+  {
+    icon: Database,
+    title: "Python for Beginners",
+    description: "Python programming basics",
+    duration: "2-3 months",
+    color: "from-blue-500 to-cyan-500",
+  },
+  {
+    icon: TestTube,
+    title: "API Testing & DB Testing",
+    description: "API test + DB concepts",
+    duration: "3-4 months",
+    color: "from-green-500 to-emerald-500",
+  },
+  {
+    icon: Laptop,
+    title: "Live Projects (Get the Realtime Experience)",
+    description: "Real project execution experience",
+    duration: "2-3 months",
+    color: "from-blue-500 to-cyan-500",
+  },
+  {
+    icon: Briefcase,
+    title: "Job Ready Program (JRP)",
+    description: "Job prep skills training",
     duration: "2-3 months",
     color: "from-purple-500 to-pink-500",
   },
   {
-    icon: MonitorSmartphone,
-    title: "Foundation in IT",
-    description:
-      "Perfect for beginners — learn programming basics, web fundamentals, and more.",
+    icon: BarChart3,
+    title: "Digital Marketing",
+    description: "Digital marketing strategies & tools",
+    duration: "3-4 months",
+    color: "from-yellow-500 to-orange-500",
+  },
+  {
+    icon: Code2,
+    title: "Web Development",
+    description: "Website development & tools",
+    duration: "4-6 months",
+    color: "from-orange-500 to-red-500",
+  },
+  {
+    icon: Camera,
+    title: "Image & Video Editing (Photoshop & Premiere)",
+    description: "Multimedia editing skills",
     duration: "2-3 months",
     color: "from-teal-500 to-blue-500",
   },
@@ -89,16 +129,13 @@ export const CoursesSection = () => {
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {courses.map((course, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
+          {courses.map((course, index) => {
+            const cardContent = (
               <Card
                 variant="feature"
-                className="h-full group cursor-pointer"
+                className={`h-full group ${
+                  course.link ? "" : "cursor-pointer"
+                }`}
               >
                 <CardHeader>
                   <div
@@ -128,8 +165,29 @@ export const CoursesSection = () => {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
-          ))}
+            );
+
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                {course.link ? (
+                  <a
+                    href={course.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {cardContent}
+                  </a>
+                ) : (
+                  cardContent
+                )}
+              </motion.div>
+            );
+          })}
         </div>
 
         <motion.div

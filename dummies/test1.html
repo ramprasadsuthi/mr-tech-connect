@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lead Counselling Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- SheetJS -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+  <!-- Chart Height Fix -->
+  <style>
+    canvas {
+      height: 250px !important;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen p-6">
+
+  <!-- Header -->
+  <div class="max-w-7xl mx-auto mb-6">
+    <h1 class="text-3xl font-bold text-gray-800">Lead Counselling Dashboard</h1>
+    <p class="text-gray-600 mt-1">Upload Excel file and analyze leads performance</p>
+  </div>
+
+
+  <!-- Upload -->
+  <div class="max-w-7xl mx-auto bg-white p-6 rounded-2xl shadow mb-6">
+    <label class="block font-semibold mb-2">Upload Excel File</label>
+    <input type="file" id="fileInput" accept=".xlsx,.xls"
+      class="border p-2 rounded w-full" />
+  </div>
+
+
+  <!-- Metrics -->
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+
+    <div class="bg-white p-5 rounded-2xl shadow">
+      <h3 class="text-gray-500">Total Leads</h3>
+      <p id="totalLeads" class="text-3xl font-bold">0</p>
+    </div>
+
+    <div class="bg-white p-5 rounded-2xl shadow">
+      <h3 class="text-gray-500">Unique Campuses</h3>
+      <p id="totalCampus" class="text-3xl font-bold">0</p>
+    </div>
+
+    <div class="bg-white p-5 rounded-2xl shadow">
+      <h3 class="text-gray-500">Branches</h3>
+      <p id="totalBranch" class="text-3xl font-bold">0</p>
+    </div>
+
+    <div class="bg-white p-5 rounded-2xl shadow">
+      <h3 class="text-gray-500">Call Dates</h3>
+      <p id="totalDates" class="text-3xl font-bold">0</p>
+    </div>
+
+  </div>
+
+
+  <!-- Charts Row 1 -->
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+    <div class="bg-white p-5 rounded-2xl shadow">
+      <h3 class="font-semibold mb-3">Leads by Campus</h3>
+      <canvas id="campusChart"></canvas>
+    </div>
+
+    <div class="bg-white p-5 rounded-2xl shadow">
+      <h3 class="font-semibold mb-3">Leads by Branch</h3>
+      <canvas id="branchChart"></canvas>
+    </div>
+
+  </div>
+
+
+  <!-- Charts Row 2 -->
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+    <div class="bg-white p-5 rounded-2xl shadow">
+      <h3 class="font-semibold mb-3">Source Distribution</h3>
+      <canvas id="sourceChart"></canvas>
+    </div>
+
+    <div class="bg-white p-5 rounded-2xl shadow">
+      <h3 class="font-semibold mb-3">Remarks Distribution</h3>
+      <canvas id="remarksChart"></canvas>
+    </div>
+
+  </div>
+
+
+  <!-- Chart Row 3 -->
+  <div class="max-w-7xl mx-auto mb-8">
+
+    <div class="bg-white p-5 rounded-2xl shadow">
+      <h3 class="font-semibold mb-3">Calls by Date</h3>
+      <canvas id="dateChart"></canvas>
+    </div>
+
+  </div>
+
+
+  <!-- Interested Leads Table -->
+  <div class="max-w-7xl mx-auto bg-white p-6 rounded-2xl shadow mb-8">
+
+    <h3 class="text-xl font-semibold mb-4 text-green-600">
+      Interested / Visiting Leads
+    </h3>
+
+    <div class="overflow-x-auto">
+
+      <table class="min-w-full border text-sm">
+
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="border p-2">SNO</th>
+            <th class="border p-2">Name</th>
+            <th class="border p-2">Campus</th>
+            <th class="border p-2">Branch</th>
+            <th class="border p-2">Contact</th>
+            <th class="border p-2">Source</th>
+            <th class="border p-2">Remarks</th>
+            <th class="border p-2">Call Date</th>
+          </tr>
+        </thead>
+
+        <tbody id="interestedTableBody">
+          <tr>
+            <td colspan="8" class="text-center p-4 text-gray-500">
+              Upload Excel to view data
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+
+  <!-- Footer -->
+  <div class="max-w-7xl mx-auto text-center mt-4 text-gray-500 text-sm">
+    © 2026 Lead Analytics Dashboard
+  </div>
+
+
+  <!-- Script -->
+  <script>
+
+  let campusChart, branchChart, sourceChart, dateChart, remarksChart;
+
+  document.getElementById("fileInput")
+    .addEventListener("change", handleFile);
+
+
+
+  function handleFile(e) {
+
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function (evt) {
+
+      const data = evt.target.result;
+
+      const workbook = XLSX.read(data, { type: "binary" });
+
+      const sheet = workbook.Sheets[workbook.SheetNames[0]];
+
+      const jsonData = XLSX.utils.sheet_to_json(sheet);
+
+      processData(jsonData);
+
+      renderInterestedTable(jsonData);
+    };
+
+    reader.readAsBinaryString(file);
+  }
+
+
+
+  function processData(data) {
+
+    document.getElementById("totalLeads").innerText = data.length;
+
+
+    const campusCount = {};
+    const branchCount = {};
+    const sourceCount = {};
+    const dateCount = {};
+    const remarksCount = {};
+
+    const campusSet = new Set();
+    const branchSet = new Set();
+    const dateSet = new Set();
+
+
+
+    data.forEach(row => {
+
+      const campus = row["CAMPUS"] || "Unknown";
+      const branch = row["BRANCH"] || "Unknown";
+      const source = row["SOURCE"] || "Unknown";
+      const date = row["DATE OF CALLING"] || "Unknown";
+      const remarks = row["REMARKS"] || "No Remarks";
+
+
+      campusSet.add(campus);
+      branchSet.add(branch);
+      dateSet.add(date);
+
+
+      campusCount[campus] = (campusCount[campus] || 0) + 1;
+      branchCount[branch] = (branchCount[branch] || 0) + 1;
+      sourceCount[source] = (sourceCount[source] || 0) + 1;
+      dateCount[date] = (dateCount[date] || 0) + 1;
+      remarksCount[remarks] = (remarksCount[remarks] || 0) + 1;
+
+    });
+
+
+    document.getElementById("totalCampus").innerText = campusSet.size;
+    document.getElementById("totalBranch").innerText = branchSet.size;
+    document.getElementById("totalDates").innerText = dateSet.size;
+
+
+    renderCharts(
+      campusCount,
+      branchCount,
+      sourceCount,
+      dateCount,
+      remarksCount
+    );
+
+  }
+
+
+
+  /* =============================
+     INTERESTED TABLE (FIXED)
+  ============================== */
+
+  function renderInterestedTable(data) {
+
+    const tableBody = document.getElementById("interestedTableBody");
+
+    tableBody.innerHTML = "";
+
+
+    // Positive words
+    const positiveKeywords = [
+      "interested",
+      "visit",
+      "join",
+      "coming",
+      "will come",
+      "ready",
+      "confirmed"
+    ];
+
+    // Negative words
+    const negativeKeywords = [
+      "not interested",
+      "no interest",
+      "already",
+      "not willing"
+    ];
+
+
+    let count = 0;
+
+
+
+    data.forEach(row => {
+
+      const remarks = (row["REMARKS"] || "").toLowerCase();
+
+
+      const hasPositive = positiveKeywords.some(word =>
+        remarks.includes(word)
+      );
+
+      const hasNegative = negativeKeywords.some(word =>
+        remarks.includes(word)
+      );
+
+
+      const isInterested = hasPositive && !hasNegative;
+
+
+      if (isInterested) {
+
+        count++;
+
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+          <td class="border p-2">${row["SNO"] || ""}</td>
+          <td class="border p-2">${row["NAME"] || ""}</td>
+          <td class="border p-2">${row["CAMPUS"] || ""}</td>
+          <td class="border p-2">${row["BRANCH"] || ""}</td>
+          <td class="border p-2">${row["CONTACT"] || ""}</td>
+          <td class="border p-2">${row["SOURCE"] || ""}</td>
+          <td class="border p-2 text-green-600 font-semibold">
+            ${row["REMARKS"] || ""}
+          </td>
+          <td class="border p-2">${row["DATE OF CALLING"] || ""}</td>
+        `;
+
+        tableBody.appendChild(tr);
+      }
+
+    });
+
+
+
+    if (count === 0) {
+
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="8" class="text-center p-4 text-red-500">
+            No Interested Leads Found
+          </td>
+        </tr>
+      `;
+    }
+
+  }
+
+
+
+  /* =============================
+     CHARTS
+  ============================== */
+
+  function renderCharts(campus, branch, source, date, remarks) {
+
+
+    if (campusChart) campusChart.destroy();
+    if (branchChart) branchChart.destroy();
+    if (sourceChart) sourceChart.destroy();
+    if (dateChart) dateChart.destroy();
+    if (remarksChart) remarksChart.destroy();
+
+
+    const options = {
+      responsive: true,
+      maintainAspectRatio: false
+    };
+
+
+
+    campusChart = new Chart(
+      document.getElementById("campusChart"),
+      {
+        type: "bar",
+        data: {
+          labels: Object.keys(campus),
+          datasets: [{
+            label: "Leads",
+            data: Object.values(campus),
+          }]
+        },
+        options
+      }
+    );
+
+
+
+    branchChart = new Chart(
+      document.getElementById("branchChart"),
+      {
+        type: "pie",
+        data: {
+          labels: Object.keys(branch),
+          datasets: [{
+            data: Object.values(branch),
+          }]
+        },
+        options
+      }
+    );
+
+
+
+    sourceChart = new Chart(
+      document.getElementById("sourceChart"),
+      {
+        type: "doughnut",
+        data: {
+          labels: Object.keys(source),
+          datasets: [{
+            data: Object.values(source),
+          }]
+        },
+        options
+      }
+    );
+
+
+
+    remarksChart = new Chart(
+      document.getElementById("remarksChart"),
+      {
+        type: "bar",
+        data: {
+          labels: Object.keys(remarks),
+          datasets: [{
+            label: "Remarks Count",
+            data: Object.values(remarks),
+          }]
+        },
+        options
+      }
+    );
+
+
+
+    dateChart = new Chart(
+      document.getElementById("dateChart"),
+      {
+        type: "line",
+        data: {
+          labels: Object.keys(date),
+          datasets: [{
+            label: "Calls",
+            data: Object.values(date),
+            fill: false,
+            tension: 0.3
+          }]
+        },
+        options
+      }
+    );
+
+  }
+
+</script>
+
+</body>
+</html>

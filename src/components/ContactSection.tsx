@@ -77,7 +77,14 @@ export const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold text-foreground mb-1">Location</h4>
-                  <p className="text-muted-foreground">Visakhapatnam, India</p>
+                  <a
+                    href="https://share.google/4puP5D69FBm0WOeAr"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    Dabagardens, Visakhapatnam, India
+                  </a>
                 </div>
               </div>
 
@@ -87,7 +94,7 @@ export const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold text-foreground mb-1">Email</h4>
-                  <p className="text-muted-foreground">info@mrtechnologies.in</p>
+                  <p className="text-muted-foreground">admin@medhaxl.in / hr@rubiksbs.com</p>
                 </div>
               </div>
 
@@ -97,7 +104,7 @@ export const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold text-foreground mb-1">Phone</h4>
-                  <p className="text-muted-foreground">+91 XXX XXX XXXX</p>
+                  <p className="text-muted-foreground">+91 996 392 9944</p>
                 </div>
               </div>
             </div>

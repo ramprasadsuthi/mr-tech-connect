@@ -24,6 +24,19 @@ export const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    e.preventDefault();
+    const targetId = href.replace("#", "");
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: "smooth" });
+    }
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -34,9 +47,8 @@ export const Header = () => {
     >
       <div className="container mx-auto px-4 flex items-center justify-between">
         <a href="#" className="flex items-center gap-2">
-          <div className="w-10 h-10 rounded-lg gradient-primary flex items-center justify-center">
+          <div className="w-10 h-10 flex items-center justify-center">
             <span className="text-primary-foreground font-display font-bold text-lg">
-              MR
             </span>
           </div>
           <span
@@ -44,7 +56,7 @@ export const Header = () => {
               isScrolled ? "text-foreground" : "text-primary-foreground"
             }`}
           >
-            Technologies
+            <img src="mrlogo1.jpeg" alt="MR Technologies" className="h-16 rounded-lg " />
           </span>
         </a>
 
@@ -54,6 +66,7 @@ export const Header = () => {
             <a
               key={link.href}
               href={link.href}
+              onClick={(e) => handleNavClick(e, link.href)}
               className={`text-sm font-medium transition-colors hover:text-secondary ${
                 isScrolled ? "text-foreground" : "text-primary-foreground/90"
               }`}
@@ -122,7 +135,7 @@ export const Header = () => {
                   key={link.href}
                   href={link.href}
                   className="text-foreground font-medium py-2 hover:text-secondary transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(e) => handleNavClick(e, link.href)}
                 >
                   {link.label}
                 </a>

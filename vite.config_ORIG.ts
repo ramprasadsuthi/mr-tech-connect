@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
   // REQUIRED for custom domain
-  base: "/",
+  base: "/mr-tech-connect/",
 
   build: {
     outDir: "dist",       // Always build to dist
