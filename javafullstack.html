@@ -232,6 +232,19 @@
   color: #475569;
   margin-top: 4px;
 }
+
+.details-link{
+  display:inline-block;
+  margin-top:12px;
+  font-size:14px;
+  font-weight:600;
+  color:var(--ms-blue);
+  text-decoration:underline;
+}
+
+.details-link:hover{
+  opacity:0.85;
+}
   </style>
 </head>
 
@@ -300,6 +313,7 @@ const courseData = {
       recommended: false,
       price: 25000,
       originalPrice: 30000,
+      detailsLink: "tracks/java-3-months.html",
       modules: [
         "Core Java Basics",
         "OOPs & Collections",
@@ -315,6 +329,7 @@ const courseData = {
       recommended: true,   // ⭐ DEFAULT SELECTED
       price: 45000,
       originalPrice: 60000,
+      detailsLink: "tracks/java-6-months.html",
       modules: [
         "Core & Advanced Java",
         "OOPs, Collections, Multithreading",
@@ -373,20 +388,29 @@ courseData.tracks.forEach(t => {
   div.className = "track-card";
 
   div.innerHTML = `
-    ${t.recommended ? `<div class="recommended-badge">Recommended</div>` : ``}
-    <div class="track-badge">${t.duration}</div>
+  ${t.recommended ? `<div class="recommended-badge">Recommended</div>` : ``}
+  <div class="track-badge">${t.duration}</div>
 
-    <h3>${t.duration}</h3>
-    <p>${t.subtitle}</p>
+  <h3>${t.duration}</h3>
+  <p>${t.subtitle}</p>
 
-    <div class="price-box">
-      <span class="current-price">₹${t.price.toLocaleString()}</span>
-      <span class="original-price">₹${t.originalPrice.toLocaleString()}</span>
-      <div class="price-note">Limited-time offer</div>
-    </div>
+  <div class="price-box">
+    <span class="current-price">₹${t.price.toLocaleString()}</span>
+    <span class="original-price">₹${t.originalPrice.toLocaleString()}</span>
+    <div class="price-note">Limited-time offer</div>
+  </div>
 
-    <ul>${t.modules.map(m => `<li>${m}</li>`).join("")}</ul>
-  `;
+  <ul>${t.modules.map(m => `<li>${m}</li>`).join("")}</ul>
+
+  <a 
+    class="details-link" 
+    href="${t.detailsLink}" 
+    target="_blank"
+    onclick="event.stopPropagation()"
+  >
+    View detailed syllabus →
+  </a>
+`;
 
   div.addEventListener("click", () => selectTrack(div, t));
   trackBox.appendChild(div);
