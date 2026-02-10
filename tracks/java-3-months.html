@@ -2,66 +2,170 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Java Full Stack – 3 Months Track</title>
+  <title>Java Full Stack Development – 3 Months Syllabus</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
-    body{
-      font-family:Segoe UI,Arial,sans-serif;
-      margin:0;
-      background:#f3f3f3;
-      color:#0f172a;
+    :root{
+      --ms-blue:#0078d4;
+      --ms-light:#e6f1ff;
+      --dark:#0f172a;
+      --gray:#f3f3f3;
     }
+
+    body{
+      margin:0;
+      font-family:Segoe UI, Arial, sans-serif;
+      background:var(--gray);
+      color:var(--dark);
+      line-height:1.6;
+    }
+
     .container{
-      max-width:900px;
+      max-width:960px;
       margin:40px auto;
       background:#fff;
-      padding:32px;
-      border-radius:12px;
-      box-shadow:0 8px 20px rgba(0,0,0,.1);
+      padding:36px 40px;
+      border-radius:14px;
+      box-shadow:0 10px 26px rgba(0,0,0,.12);
     }
-    h1{color:#0078d4;}
-    h2{margin-top:28px;}
-    ul{padding-left:20px;}
-    li{margin-bottom:6px;}
+
+    h1{
+      color:var(--ms-blue);
+      margin-bottom:8px;
+    }
+
+    .subtitle{
+      font-size:17px;
+      margin-bottom:24px;
+      color:#334155;
+    }
+
+    .info-box{
+      background:var(--ms-light);
+      border-left:5px solid var(--ms-blue);
+      padding:18px 20px;
+      border-radius:10px;
+      margin-bottom:32px;
+    }
+
+    h2{
+      margin-top:36px;
+      color:var(--ms-blue);
+    }
+
+    ul{
+      padding-left:22px;
+      margin-top:12px;
+    }
+
+    li{
+      margin-bottom:6px;
+    }
+
+    .month{
+      margin-top:28px;
+      padding:20px;
+      background:#f9fbff;
+      border-radius:12px;
+      border:1px solid #d0e5ff;
+    }
+
     .note{
-      margin-top:24px;
-      padding:16px;
-      background:#e6f1ff;
-      border-left:4px solid #0078d4;
+      margin-top:28px;
+      padding:16px 18px;
+      background:#f0f8ff;
+      border-left:4px solid var(--ms-blue);
+      border-radius:8px;
+      font-size:15px;
+    }
+
+    .footer{
+      margin-top:40px;
+      padding-top:20px;
+      border-top:1px solid #e5e7eb;
+      font-size:15px;
+    }
+
+    a{
+      color:var(--ms-blue);
+      text-decoration:underline;
+    }
+
+    @media(max-width:600px){
+      .container{
+        padding:28px 22px;
+      }
     }
   </style>
 </head>
+
 <body>
 
 <div class="container">
-  <h1>Java Full Stack – 3 Months Fast Track</h1>
-  <p><strong>Ideal for:</strong> Working professionals, quick upskilling</p>
 
-  <h2>Month 1 – Core Java</h2>
-  <ul>
-    <li>Java Basics & JVM</li>
-    <li>OOPs Concepts</li>
-    <li>Exception Handling</li>
-    <li>Collections Framework</li>
-  </ul>
+  <h1>Java Full Stack Development – 3 Months (Fast Track)</h1>
+  <p class="subtitle">
+    A focused, accelerated program designed to quickly build core Java
+    and backend skills with hands-on practice.
+  </p>
 
-  <h2>Month 2 – Backend</h2>
-  <ul>
-    <li>Spring Boot Fundamentals</li>
-    <li>REST API Development</li>
-    <li>MySQL Integration</li>
-  </ul>
+  <div class="info-box">
+    <strong>Ideal for:</strong> Working professionals, students with basic programming knowledge,
+    or learners looking for quick upskilling and job readiness.
+  </div>
 
-  <h2>Month 3 – Project</h2>
-  <ul>
-    <li>Mini Full Stack Project</li>
-    <li>API Testing</li>
-    <li>Deployment Basics</li>
-  </ul>
+  <!-- MONTH 1 -->
+  <div class="month">
+    <h2>Month 1 – Core Java Essentials</h2>
+    <ul>
+      <li>Introduction to Java & JVM</li>
+      <li>Variables, data types, operators</li>
+      <li>Control statements (if, switch, loops)</li>
+      <li>Methods & method overloading</li>
+      <li>Object-Oriented Programming (OOPs)</li>
+      <li>Constructors & memory basics</li>
+      <li>String handling</li>
+    </ul>
+  </div>
+
+  <!-- MONTH 2 -->
+  <div class="month">
+    <h2>Month 2 – Advanced Java & Backend Basics</h2>
+    <ul>
+      <li>Exception handling</li>
+      <li>Collections Framework</li>
+      <li>Java 8 features (Lambda expressions)</li>
+      <li>Introduction to Spring Boot</li>
+      <li>REST API fundamentals</li>
+      <li>MySQL database basics</li>
+    </ul>
+  </div>
+
+  <!-- MONTH 3 -->
+  <div class="month">
+    <h2>Month 3 – Project & Practical Exposure</h2>
+    <ul>
+      <li>CRUD application using Spring Boot</li>
+      <li>REST API integration</li>
+      <li>Basic validations & exception handling</li>
+      <li>API testing using Postman</li>
+      <li>Mini Full Stack Project</li>
+      <li>Basic deployment overview</li>
+    </ul>
+  </div>
 
   <div class="note">
-    💡 This fast-track focuses on **core employability skills**.
+    💡 This fast-track program focuses on <strong>core employability skills</strong>
+    and is ideal for learners who want results in a shorter time frame.
   </div>
+
+  <div class="footer">
+    📍 MR Technologies, Visakhapatnam<br>
+    🌐 <a href="https://www.mrtechinfo.com" target="_blank">mrtechinfo.com</a><br>
+    📞 +91-99639 29944
+  </div>
+
 </div>
 
 </body>
