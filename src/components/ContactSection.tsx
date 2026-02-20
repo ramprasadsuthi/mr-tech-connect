@@ -114,7 +114,7 @@ ${message}
                 </div>
                 <div>
                   <h4 className="font-semibold text-foreground mb-1">Phone</h4>
-                  <p className="text-muted-foreground">+91 996 392 9944</p>
+                  <p className="text-muted-foreground">+919963929944</p>
                 </div>
               </div>
             </div>
