@@ -1,38 +1,46 @@
 import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { MapPin, Phone, Mail, Send, CheckCircle } from "lucide-react";
-import { toast } from "sonner";
+import { MapPin, Phone, Mail, Send } from "lucide-react";
 
 export const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    const form = e.currentTarget;
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    toast.success("Message sent successfully! We'll get back to you soon.");
+    const name = (form.elements.namedItem("name") as HTMLInputElement).value;
+    const email = (form.elements.namedItem("email") as HTMLInputElement).value;
+    const phone = (form.elements.namedItem("phone") as HTMLInputElement).value;
+    const message = (form.elements.namedItem("message") as HTMLTextAreaElement).value;
 
-    // Reset form after a delay
-    setTimeout(() => {
-      setIsSubmitted(false);
-      (e.target as HTMLFormElement).reset();
-    }, 3000);
+    const whatsappMessage = `
+Hello MR Technologies,
+
+ Name: ${name}
+ Email: ${email}
+ Phone: ${phone}
+
+ Message:
+${message}
+    `;
+
+    const whatsappURL = `https://wa.me/919963929944?text=${encodeURIComponent(
+      whatsappMessage
+    )}`;
+
+    window.open(whatsappURL, "_blank");
   };
 
   return (
     <section id="contact" className="py-20 lg:py-32 bg-background" ref={ref}>
       <div className="container mx-auto px-4">
+        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -72,7 +80,7 @@ export const ContactSection = () => {
 
             <div className="space-y-6">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl gradient-secondary flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-xl gradient-secondary flex items-center justify-center">
                   <MapPin className="w-5 h-5 text-secondary-foreground" />
                 </div>
                 <div>
@@ -89,17 +97,19 @@ export const ContactSection = () => {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center">
                   <Mail className="w-5 h-5 text-primary-foreground" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-foreground mb-1">Email</h4>
-                  <p className="text-muted-foreground">admin@medhaxl.in / sales@rubiksbs.com</p>
+                  <p className="text-muted-foreground">
+                    admin@medhaxl.in / hr@rubiksbs.com
+                  </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl gradient-accent flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-xl gradient-accent flex items-center justify-center">
                   <Phone className="w-5 h-5 text-accent-foreground" />
                 </div>
                 <div>
@@ -107,31 +117,6 @@ export const ContactSection = () => {
                   <p className="text-muted-foreground">+91 996 392 9944</p>
                 </div>
               </div>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-muted/50 border border-border">
-              <p className="text-sm text-muted-foreground">
-                <strong className="text-foreground">Note:</strong> For training
-                enquiries, visit{" "}
-                <a
-                  href="https://www.medhatest.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-secondary hover:underline"
-                >
-                  Medha XL
-                </a>
-                . For hiring enquiries, visit{" "}
-                <a
-                  href="https://www.rubiksbs.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-secondary hover:underline"
-                >
-                  RUBIKS
-                </a>
-                .
-              </p>
             </div>
           </motion.div>
 
@@ -147,93 +132,36 @@ export const ContactSection = () => {
             >
               <div className="space-y-5">
                 <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium text-foreground mb-2"
-                  >
+                  <label className="block text-sm font-medium mb-2">
                     Full Name
                   </label>
-                  <Input
-                    id="name"
-                    name="name"
-                    placeholder="John Doe"
-                    required
-                    className="h-12"
-                  />
+                  <Input name="name" required className="h-12" />
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-foreground mb-2"
-                  >
+                  <label className="block text-sm font-medium mb-2">
                     Email Address
                   </label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="john@example.com"
-                    required
-                    className="h-12"
-                  />
+                  <Input name="email" type="email" required className="h-12" />
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="phone"
-                    className="block text-sm font-medium text-foreground mb-2"
-                  >
+                  <label className="block text-sm font-medium mb-2">
                     Phone Number
                   </label>
-                  <Input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    placeholder="+91 XXXXX XXXXX"
-                    className="h-12"
-                  />
+                  <Input name="phone" className="h-12" />
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-sm font-medium text-foreground mb-2"
-                  >
+                  <label className="block text-sm font-medium mb-2">
                     Message
                   </label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    placeholder="Tell us about your enquiry..."
-                    rows={4}
-                    required
-                  />
+                  <Textarea name="message" rows={4} required />
                 </div>
 
-                <Button
-                  type="submit"
-                  variant="accent"
-                  size="lg"
-                  className="w-full"
-                  disabled={isSubmitting || isSubmitted}
-                >
-                  {isSubmitting ? (
-                    <>
-                      <div className="w-5 h-5 border-2 border-accent-foreground/30 border-t-accent-foreground rounded-full animate-spin" />
-                      Sending...
-                    </>
-                  ) : isSubmitted ? (
-                    <>
-                      <CheckCircle className="w-5 h-5" />
-                      Message Sent!
-                    </>
-                  ) : (
-                    <>
-                      <Send className="w-5 h-5" />
-                      Send Message
-                    </>
-                  )}
+                <Button type="submit" variant="accent" size="lg" className="w-full">
+                  <Send className="w-5 h-5" />
+                  Send via WhatsApp
                 </Button>
               </div>
             </form>

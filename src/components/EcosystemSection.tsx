@@ -21,7 +21,7 @@ export const EcosystemSection = () => {
   return (
     <section
       id="ecosystem"
-      className="py-20 lg:py-32 bg-muted/30"
+      className="py-20 lg:py-28 bg-muted/30"
       ref={ref}
     >
       <div className="container mx-auto px-4">

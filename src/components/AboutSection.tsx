@@ -31,7 +31,7 @@ export const AboutSection = () => {
   ];
 
   return (
-    <section id="about" className="py-20 lg:py-32 bg-background" ref={ref}>
+    <section id="about" className="py-20 lg:py-28 bg-background" ref={ref}>
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <motion.div
