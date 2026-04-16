@@ -31,7 +31,7 @@ export const HeroSection = () => {
           >
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-foreground/10 backdrop-blur-sm border border-primary-foreground/20 text-primary-foreground/90 text-sm font-medium">
               <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
-              Empowering IT Careers Since 2020
+              Empowering IT Careers Since 2019
             </span>
           </motion.div>
 
@@ -99,8 +99,8 @@ export const HeroSection = () => {
             className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6"
           >
             {[
-              { value: "5000+", label: "Students Trained" },
-              { value: "50+", label: "Hiring Partners" },
+              { value: "15000+", label: "Students Trained" },
+              { value: "25+", label: "Hiring Partners" },
               { value: "85%", label: "Placement Rate" },
               { value: "10+", label: "Courses Offered" },
             ].map((stat, index) => (

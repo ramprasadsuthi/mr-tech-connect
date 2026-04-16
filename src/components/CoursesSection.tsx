@@ -1,4 +1,6 @@
 import { motion, useInView } from "framer-motion";
+import { BriefcaseBusiness } from "lucide-react";
+import { GraduationCap } from "lucide-react";
 import { useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -82,11 +84,20 @@ const courses = [
     link: "/mernstack.html",
   },
   {
-    icon: Camera,
-    title: "Image & Video Editing (Photoshop & Premiere)",
-    description: "Multimedia editing skills",
-    duration: "2-3 months",
-    color: "from-teal-500 to-blue-500",
+    icon: BriefcaseBusiness,
+    title: "Business Analyst (Agile, SQL & Power BI)",
+    description: "Learn requirement gathering, Agile practices, SQL data analysis, and Power BI dashboards with real-world BA projects.",
+    duration: "6-8 weeks",
+    color: "from-blue-500 to-indigo-500",
+    link: "/business-analyst.html",
+  },
+  {
+  icon: GraduationCap,
+  title: "College Workshops & CRT Programs",
+  description: "Industry-focused workshops and campus recruitment training programs on AI, Full Stack, Data Analytics, Cybersecurity, and more.",
+  duration: "15 - 20 days",
+  color: "from-orange-500 to-red-500",
+  link: "/college-workshops.html",
   },
 ];
 
@@ -185,7 +196,7 @@ export const CoursesSection = () => {
         >
           <Button variant="accent" size="lg" asChild>
             <a
-              href="https://www.medhatest.com"
+              href="https://www.medhatest.com/courses"
               target="_blank"
               rel="noopener noreferrer"
               className="group"

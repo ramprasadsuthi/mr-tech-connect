@@ -40,7 +40,15 @@
       border-radius:8px;
       object-fit:contain;
     }
-    .hero{
+    .hero{.logo{
+      position:absolute;
+      top:10px;
+      right:32px;
+      height:48px;
+      border-radius:8px;
+      object-fit:contain;
+      z-index:2;
+    }
       background:linear-gradient(135deg,var(--ms-blue) 0%,#005fa3 100%);
       color:#fff;
       padding:56px 40px 64px;
@@ -267,7 +275,7 @@
     <div class="highlights" id="highlights"></div>
     <div class="recommendation-note">
         💡 <strong>Note:</strong>
-        We recommend the <strong>6-month track</strong> for strong fundamentals,
+        We recommend the <strong>8-week track</strong> for strong fundamentals,
         but the choice is yours.
     </div>
   </section>
@@ -292,61 +300,67 @@
    ====================== */
 
 const courseData = {
-  title: "Python with AI – Industry Ready Program",
-  description: "Master Python programming and Artificial Intelligence with real-world projects, tools, and deployment skills.",
+  title: "Business Analyst Program – Industry Job Ready Training",
+  description: "Master Business Analysis skills used in modern organizations including Agile, SQL, Power BI, Jira, and stakeholder management. Build real Business Analyst project experience and prepare for roles across IT, finance, consulting, and product companies.",
 
   badges: [
-    "🤖 AI-Integrated Curriculum",
-    "📊 Python + ML + Real-Time Projects",
-    "🚀 Career & Placement Support"
+    "📊 SQL + Power BI for Data Analysis",
+    "📋 Agile + Jira + User Stories",
+    "💼 Industry Job Preparation"
   ],
 
   tracks: [
     {
-      duration: "3 Months – AI Fast Track",
-      subtitle: "Best for working professionals & quick AI upskilling",
+      duration: "6 Weeks – Professional Track",
+      subtitle: "Best for beginners entering Business Analyst roles",
       recommended: false,
-      price: 28000,
+      price: 25000,
       originalPrice: 35000,
-      detailsLink: "tracks/python-ai-3-months.html",
+      detailsLink: "tracks/business-analyst-6-weeks.html",
       modules: [
-        "Python Fundamentals & OOP",
-        "NumPy & Pandas",
-        "Data Cleaning & Visualization",
-        "Machine Learning Basics",
-        "Scikit-Learn Implementation",
-        "Mini AI Project"
+        "Introduction to Business Analysis",
+        "Software Development Life Cycle (SDLC)",
+        "Requirement Gathering Techniques",
+        "Business Process Modeling (BPMN)",
+        "User Stories & Agile Basics",
+        "Excel for Business Analysis",
+        "Stakeholder Communication",
+        "Mini Business Analysis Project"
       ]
     },
     {
-      duration: "6 Months – AI Master Track",
-      subtitle: "Best for freshers & full AI career preparation",
+      duration: "8 Weeks – Advanced Career Track",
+      subtitle: "Best for complete Business Analyst skill development",
       recommended: true,
-      price: 55000,
-      originalPrice: 75000,
-      detailsLink: "tracks/python-ai-6-months.html",
+      price: 35000,
+      originalPrice: 50000,
+      detailsLink: "tracks/business-analyst-8-weeks.html",
       modules: [
-        "Python Core & Advanced",
-        "OOP, File Handling, APIs",
-        "NumPy, Pandas, Matplotlib, Seaborn",
-        "Statistics & Linear Algebra for AI",
-        "Machine Learning (Regression, Classification)",
-        "Deep Learning Basics (ANN, CNN Intro)",
-        "NLP Fundamentals",
-        "AI Model Deployment (Flask / FastAPI)",
-        "Git, GitHub & Cloud Deployment",
-        "Capstone AI Live Project"
+        "Business Analysis Fundamentals",
+        "Agile & Scrum for Business Analysts",
+        "User Stories & Acceptance Criteria",
+        "SQL for Data Analysis",
+        "Power BI Dashboard Creation",
+        "Jira & Confluence for Project Tracking",
+        "Business Process Modeling (BPMN)",
+        "Wireframing with Figma",
+        "Stakeholder & Requirement Management",
+        "UAT & Testing Collaboration",
+        "Capstone Business Analyst Project",
+        "Resume Building & Interview Preparation"
       ]
     }
   ],
 
   highlights: [
-    "Build real AI-powered applications",
-    "Medical / Business AI project exposure",
-    "Model deployment training",
-    "Resume + GitHub AI portfolio building",
-    "Mock interviews (AI & Data roles)",
-    "Internship & placement assistance"
+    "Real-world Business Analysis project simulation",
+    "Hands-on SQL practice for data analysis",
+    "Power BI dashboards for business reporting",
+    "Jira & Confluence for Agile project management",
+    "Wireframing and requirement documentation",
+    "Resume building & interview preparation",
+    "Portfolio-ready Business Analyst project",
+    "Guidance for industry-recognized BA certifications"
   ],
 
   enrollLink: "https://tinyurl.com/mrcontact",
@@ -355,7 +369,7 @@ const courseData = {
     📞 <strong>+91-99639 29944</strong><br>
     🌐 <a href="https://www.mrtechinfo.com" target="_blank">mrtechinfo.com</a><br>
     📍 MR Technologies, Dabagardens, Visakhapatnam-530020<br>
-    📅 New AI batches starting soon
+    📅 New Business Analyst batches starting soon
   `
 };
 
