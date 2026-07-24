@@ -306,8 +306,8 @@ const courseData = {
       duration: "3 Months – SDET Fast Track",
       subtitle: "Best for quick entry into QA & Automation roles",
       recommended: false,
-      price: 26000,
-      originalPrice: 32000,
+      price: 35000,
+      originalPrice: 0,
       detailsLink: "tracks/sdet-3-months.html",
       modules: [
         "Software Testing Fundamentals",
@@ -322,8 +322,8 @@ const courseData = {
       duration: "6 Months – SDET Master Track",
       subtitle: "Best for freshers & complete test engineering mastery",
       recommended: true,
-      price: 52000,
-      originalPrice: 70000,
+      price: 60000,
+      originalPrice: 0,
       detailsLink: "tracks/sdet-6-months.html",
       modules: [
         "Manual Testing & Agile Methodology",
@@ -391,8 +391,8 @@ courseData.tracks.forEach(t => {
 
   <div class="price-box">
     <span class="current-price">₹${t.price.toLocaleString()}</span>
-    <span class="original-price">₹${t.originalPrice.toLocaleString()}</span>
-    <div class="price-note">Limited-time offer</div>
+    ${t.originalPrice ? `<span class="original-price">₹${t.originalPrice.toLocaleString()}</span>` : ""}
+    <div class="price-note">Note : Pricing and discounts vary by course and promotional period. Contact the admin for the best available offer.</div>
   </div>
 
   <ul>${t.modules.map(m => `<li>${m}</li>`).join("")}</ul>

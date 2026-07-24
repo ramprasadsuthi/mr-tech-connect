@@ -306,8 +306,8 @@ const courseData = {
       duration: "3 Months – Fast Track",
       subtitle: "Best for quick entry & frontend/backend learners",
       recommended: false,
-      price: 28000,
-      originalPrice: 35000,
+      price: 35000,
+      originalPrice: 0,
       detailsLink: "tracks/mern-3-months.html",
       modules: [
         "HTML5, CSS3 & JavaScript Basics",
@@ -322,8 +322,8 @@ const courseData = {
       duration: "6 Months – Full Stack Master Track",
       subtitle: "Best for freshers & complete MERN mastery",
       recommended: true,
-      price: 55000,
-      originalPrice: 75000,
+      price: 60000,
+      originalPrice: 0,
       detailsLink: "tracks/mern-6-months.html",
       modules: [
         "Advanced JavaScript & ES6+",
@@ -391,8 +391,8 @@ courseData.tracks.forEach(t => {
 
   <div class="price-box">
     <span class="current-price">₹${t.price.toLocaleString()}</span>
-    <span class="original-price">₹${t.originalPrice.toLocaleString()}</span>
-    <div class="price-note">Limited-time offer</div>
+    ${t.originalPrice ? `<span class="original-price">₹${t.originalPrice.toLocaleString()}</span>` : ""}
+    <div class="price-note">Note : Pricing and discounts vary by course and promotional period. Contact the admin for the best available offer.</div>
   </div>
 
   <ul>${t.modules.map(m => `<li>${m}</li>`).join("")}</ul>
